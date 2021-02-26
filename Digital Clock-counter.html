@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+
+        }
+
+        .container {
+            margin:10px 10px;
+            padding: 20px 20px;
+            border: 1px solid blue;
+            border-radius: 15%;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #timeShow {
+            position: absolute;
+            top: 20%;
+            border-bottom: 5px red solid;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            padding: 10px 10px 10px 10px;
+            font-size: 27px;
+            transition:ease-in-out 0.2s;
+        }
+
+        #timeShow:hover{
+            font-size: 30px;
+            transform: translateY(20%);
+            border-bottom: 5px rgb(45, 4, 228) solid;
+
+        }
+        #timer-text {
+            text-align-last: center;
+        }
+        button{
+            padding: 5px 5px;
+            color: aquamarine;
+            background-color: rgb(7, 22, 131);
+            margin-top: 2%;
+            border-radius: 5px;
+            font-weight: 700;
+
+
+        }
+    </style>
+
+    <title>Interval</title>
+
+</head>
+
+<body>
+    <h4 id="timeShow"></h4>
+
+    <div class="container">
+        <h1 id="hi">Counter</h1>
+
+        <h2 id="timer-text">0</h2>
+
+
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        const timerText = document.getElementById('timer-text');
+        const start = document.getElementById('start');
+        const pause = document.getElementById('pause');
+
+
+        let count = 0;
+        let intervalId;
+
+        start.addEventListener('click', () =>
+        {
+            intervalId = setInterval(() =>
+            {
+                count += 1;
+                timerText.textContent = count;
+                document.getElementById('hi').innerHTML = "Counting Started";
+            }, 1000);
+        });
+
+        pause.addEventListener("click", () =>
+        {
+            document.getElementById('hi').innerHTML = "Counting Paused!";
+            clearInterval(intervalId);
+        });
+
+        function timeShow()
+        {
+            var date = new Date();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+            var ses = 'AM';
+
+            if(h == 0){
+                h = 12;
+            }
+            if(h > 12) {
+                h = h-12;
+                ses = 'PM'
+            }
+
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+
+            var time = `My Time: ${h}: ${m}: ${s} ${ses}`;
+            document.getElementById('timeShow').innerText = time;
+            document.getElementById('timeShow').textContent = time;
+
+            setTimeout(timeShow, 1000);
+        };
+
+        timeShow();
+
+    </script>
+
+</body>
+
+</html>
